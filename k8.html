@@ -1,0 +1,156 @@
+<html>
+
+<head>
+
+    <title>K8-Web-UI</title>
+
+</head>
+
+<style>
+
+body {
+	margin: 0px;
+	font-family: "Lucida Console" ; 
+	padding: 40px;
+	background-color: rgb(192, 192, 192);
+	text-align: center;
+	
+}
+
+h3 {
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+}
+
+#d1 {
+	text-align: left;
+	width: 1350px;
+  	height: 600px;  
+  	padding: 50px;
+  	border: 1px solid white;
+	
+}
+
+.button {
+  background-color: #e7e7e7; 
+  border: none;
+  color: black;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+</style>
+
+<script>
+function f1() {
+
+var cmd = document.getElementById("id1").value;
+var iid = "0"
+var final = ""
+
+if (((cmd.includes("deployments")) || (cmd.includes("deploy")) || (cmd.includes("deployment"))) && ((cmd.includes("create")) || (cmd.includes("generate")) || (cmd.includes("build")))) {
+	var i_name = prompt("Please enter your image name : ")
+	var d_name = prompt("Deployment name also : ")
+	var iid = "1"
+	var final = iid + " " + i_name + " " + d_name
+}
+
+else if (((cmd.includes("pods")) || (cmd.includes("pod"))) && ((cmd.includes("create")) || (cmd.includes("generate")) || (cmd.includes("build")))) {
+	var i_name = prompt("Please enter image name : ")
+	var p_name = prompt("Pod name also : ")
+	var iid = "2"
+	var final = iid + " " + i_name + " " + p_name
+}
+
+else if (((cmd.includes("pods")) || (cmd.includes("pod"))) && ((cmd.includes("delete")) || (cmd.includes("remove")) || (cmd.includes("detach")))) {
+	var p_name = prompt("Please Enter pod name : ")
+	var iid = "3"
+	var final = iid + " " + p_name
+}
+
+else if (((cmd.includes("deployments")) || (cmd.includes("deploy")) || (cmd.includes("deployment"))) && ((cmd.includes("delete")) || (cmd.includes("remove")) || (cmd.includes("detach")))) {
+	var d_name = prompt("Please enter Deployment name : ")
+	var iid = "4"
+	var final = iid + " " + d_name
+}
+
+else if (((cmd.includes("deployments")) || (cmd.includes("deploy")) || (cmd.includes("deployment"))) && ((cmd.includes("expose"))  || (cmd.includes("reveal")))) {
+	var d_name = prompt("Please enter Deployment name : ")
+	var port = prompt("Port number also : ")
+	var iid = "5"
+	var final = iid + " " + d_name + " " + port
+}
+
+else if (((cmd.includes("deployments")) || (cmd.includes("deploy")) || (cmd.includes("deployment"))) && ((cmd.includes("scale")) || (cmd.includes("increase")) || (cmd.includes("decrease")) || (cmd.includes("scale up")) || (cmd.includes("scale down")))) {
+	var d_name = prompt("Please Enter Deployment name: ")
+	var replica = prompt("Enter the number of replicas you need : ")
+	var iid = "6"
+	var final = iid + " " + d_name + " " + replica
+}
+
+else if (((cmd.includes("pods")) || (cmd.includes("pod"))) && ((cmd.includes("show")) || (cmd.includes("get")) || (cmd.includes("list")))) {
+	var iid = "7"
+	var final = iid 
+}
+
+else if (((cmd.includes("deployments"))|| (cmd.includes("deployment")) || (cmd.includes("deploy"))) && ((cmd.includes("show")) || (cmd.includes("display")) || (cmd.includes("get")) || (cmd.includes("list")))) {
+	var iid = "8"
+	var final = iid 
+}
+else if (((cmd.includes("services")) || (cmd.includes("services")) || (cmd.includes("svc"))) && ((cmd.includes("show")) || (cmd.includes("display")) || (cmd.includes("get")) || (cmd.includes("list")))) {
+	var iid = "9"
+	var final = iid 
+}
+
+else if (((cmd.includes("all")) || (cmd.includes("everything"))) && ((cmd.includes("delete")) || (cmd.includes("remove")) || (cmd.includes("destroy")))) {
+	var iid = "10"
+	var final = iid 
+}
+
+else {
+	var iid = "11"
+	var final = iid 
+} 
+
+
+var xhr = new XMLHttpRequest();
+
+xhr.open("GET", "http://10.0.2.15/cgi-bin/k8.py?x=" + final, true);
+
+xhr.send();
+
+xhr.onload = function() {
+		var out = xhr.responseText;
+		document.getElementById("d1").innerHTML = out;
+}
+
+}
+
+</script>
+
+<body>
+
+	<h3> Please enter what you want kubernetes to do below </h3>
+	Kubernetes <input id="id1" />
+<br />
+<br />
+	<button class="button" onclick="f1()"> ENTER </button>
+<br />
+<br />
+<hr>
+<hr>
+
+<pre>
+	<div id="d1"> 
+		<p>  Your result will appear here :   </p>
+	</div>
+
+</pre>
+
+</body>
+
+</html>
